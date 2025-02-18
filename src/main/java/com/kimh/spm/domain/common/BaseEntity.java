@@ -1,0 +1,57 @@
+package com.kimh.spm.domain.common;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+
+@Getter
+@MappedSuperclass
+public abstract class BaseEntity {
+
+    @CreationTimestamp
+    @Column(name = "in_date", updatable = false, columnDefinition = "TIMESTAMP DEFAULT SYSDATE") //오라클의 SYSDATE를 기본값
+    private LocalDateTime inDate;
+
+    @Column(name = "in_user", updatable = false, nullable = false)
+    private String inUser;
+
+    @UpdateTimestamp
+    @Column(name = "upd_date", insertable = false, columnDefinition = "TIMESTAMP DEFAULT SYSDATE ON UPDATE SYSDATE")
+    private LocalDateTime updDate;
+
+    @Column(name = "upd_user", insertable = false)
+    private String updUser;
+
+    @PrePersist //JPA를 사용하면서 오라클 SYSDATE를 직접 활용
+    protected void onCreate() {
+        this.inDate = LocalDateTime.now(); // 생성 날짜 설정
+        this.inUser = getCurrentUserId(); // 생성한 사용자 ID 설정
+    }
+
+    @PreUpdate //upd_user와 upd_date는 @PreUpdate를 통해 자동 업데이트
+    protected void onUpdate() {
+        this.updDate = LocalDateTime.now(); // 수정 날짜 설정
+        this.updUser = getCurrentUserId(); // 수정한 사용자 ID 설정
+    }
+
+    private String getCurrentUserId() {
+        try {
+        	//@PrePersist를 사용하여 자동으로 로그인한 사용자 ID 저장 (SecurityContextHolder 활용)
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                return ((UserDetails) principal).getUsername(); // 로그인한 사용자의 ID 반환
+            }
+        } catch (Exception e) {
+            return "SYSTEM"; // 로그인 정보가 없을 경우 기본값 설정
+        }
+        return "SYSTEM";
+    }
+}
