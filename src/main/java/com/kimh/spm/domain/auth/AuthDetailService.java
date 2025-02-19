@@ -23,8 +23,8 @@ public class AuthDetailService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-		Optional<User> user = userRepository.findByUserid(userid);
+	public UserDetails loadUserByUsername(String usId) throws UsernameNotFoundException {
+		Optional<User> user = userRepository.findByUsId(usId);
 
 		//UserBuilder builder = null;
 		if (user.isPresent()) {

@@ -12,11 +12,10 @@ import com.kimh.spm.domain.user.User;
 import jakarta.transaction.Transactional;
 
 public interface UserRepository extends CrudRepository<User, String> {
-	Optional<User> findByUsername(String username);
-	Optional<User> findByUserid(String userid);
+	Optional<User> findByUsNm(String usNm);
+	Optional<User> findByUsId(String usId);
 	
 	@Modifying
-    @Transactional
-    @Query("UPDATE USER SET us_pw = :newPassword WHERE us_id = :usId")
+    @Query(value = "UPDATE USER SET usPw = :newPassword WHERE usId = :usId", nativeQuery = true)
     int updatePasswordByUserid(@Param("usId") String userid, @Param("newPassword") String newPassword);
 }

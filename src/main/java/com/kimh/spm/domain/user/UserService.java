@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kimh.spm.domain.user.User;
 import com.kimh.spm.domain.user.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,6 +23,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public User saveUser(User user) {
         // 암호화된 비밀번호로 설정
         user.setUsPw(passwordEncoder.encode(user.getUsPw()));
@@ -32,10 +34,11 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public int resetPassword(String userid) {
+    @Transactional
+    public int resetPassword(String usId) {
         String sNewPassword = "1234";
         String sEncodeNewPassword = passwordEncoder.encode(sNewPassword);
-        return userRepository.updatePasswordByUserid(userid,sEncodeNewPassword);  // 비밀번호 업데이트
+        return userRepository.updatePasswordByUserid(usId,sEncodeNewPassword);  // 비밀번호 업데이트
 
     }
 }

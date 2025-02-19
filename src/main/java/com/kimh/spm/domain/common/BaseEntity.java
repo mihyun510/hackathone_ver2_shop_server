@@ -17,17 +17,17 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @CreationTimestamp
-    @Column(name = "in_date", updatable = false, columnDefinition = "TIMESTAMP DEFAULT SYSDATE") //오라클의 SYSDATE를 기본값
+    @Column(name = "IN_DATE", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP") //오라클의 SYSDATE를 기본값
     private LocalDateTime inDate;
 
-    @Column(name = "in_user", updatable = false, nullable = false)
+    @Column(name = "IN_USER", updatable = false, nullable = false)
     private String inUser;
 
     @UpdateTimestamp
-    @Column(name = "upd_date", insertable = false, columnDefinition = "TIMESTAMP DEFAULT SYSDATE ON UPDATE SYSDATE")
+    @Column(name = "UPD_DATE", insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime updDate;
 
-    @Column(name = "upd_user", insertable = false)
+    @Column(name = "UPD_USER", insertable = false)
     private String updUser;
 
     @PrePersist //JPA를 사용하면서 오라클 SYSDATE를 직접 활용
@@ -50,8 +50,8 @@ public abstract class BaseEntity {
                 return ((UserDetails) principal).getUsername(); // 로그인한 사용자의 ID 반환
             }
         } catch (Exception e) {
-            return "SYSTEM"; // 로그인 정보가 없을 경우 기본값 설정
+            return "ADMIN"; // 로그인 정보가 없을 경우 기본값 설정
         }
-        return "SYSTEM";
+        return "ADMIN";
     }
 }

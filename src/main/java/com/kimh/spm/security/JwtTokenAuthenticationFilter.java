@@ -43,7 +43,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     	//헤더 인증값 가져오기 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String username;
+        final String usNm;
 
         //헤더에 token값이 없으면 패스한다.
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -53,11 +53,11 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
         //jwt 추출한다. 	
         jwt = authHeader.substring(7);  // "Bearer " 이후의 JWT 추출
-        username = jwtAuthenticationService.extractUserId(jwt); //username 꺼내오
+        usNm = jwtAuthenticationService.extractUserId(jwt); //username 꺼내오
 
         //username 꺼내와서 jwt와 user token비
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = authDetailService.loadUserByUsername(username);
+        if (usNm != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            var userDetails = authDetailService.loadUserByUsername(usNm);
             if (jwtAuthenticationService.validateToken(jwt, userDetails)) {
                 var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
