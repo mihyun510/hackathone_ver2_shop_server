@@ -1,4 +1,4 @@
-package com.kimh.spm.security;
+package com.kimh.spm.security.jwt;
 
 import java.security.Key;
 import java.util.Base64;

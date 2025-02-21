@@ -1,4 +1,4 @@
-package com.kimh.spm.domain.auth.dto;
+package com.kimh.spm.security.auth.dto;
 
 import lombok.Data;
 

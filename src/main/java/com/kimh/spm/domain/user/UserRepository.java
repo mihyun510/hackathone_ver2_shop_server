@@ -16,6 +16,6 @@ public interface UserRepository extends CrudRepository<User, String> {
 	Optional<User> findByUsId(String usId);
 	
 	@Modifying
-    @Query(value = "UPDATE USER SET usPw = :newPassword WHERE usId = :usId", nativeQuery = true)
-    int updatePasswordByUserid(@Param("usId") String userid, @Param("newPassword") String newPassword);
+    @Query(value = "UPDATE USER SET US_PW = :newPassword WHERE US_ID = :usId", nativeQuery = true)
+    int updatePasswordByUserid(@Param("usId") String usId, @Param("newPassword") String newPassword);
 }

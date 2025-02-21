@@ -1,4 +1,4 @@
-package com.kimh.spm.domain.auth;
+package com.kimh.spm.security.auth;
 
 import java.util.Map;
 
@@ -11,13 +11,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.kimh.spm.domain.auth.dto.AuthRequest;
-import com.kimh.spm.domain.auth.dto.AuthResponse;
-import com.kimh.spm.domain.auth.AuthDetail;
 import com.kimh.spm.domain.user.User;
-import com.kimh.spm.domain.auth.AuthDetailService;
 import com.kimh.spm.domain.user.UserService;
-import com.kimh.spm.security.JwtTokenProvider;
+import com.kimh.spm.security.auth.dto.AuthRequest;
+import com.kimh.spm.security.auth.dto.AuthResponse;
+import com.kimh.spm.security.jwt.JwtTokenProvider;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,10 +79,10 @@ public class AuthController {
     @PutMapping("/modify/user/password")
     public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> payload) {
     	
-    	String userid = payload.get("usId");
+    	String usId = payload.get("usId");
         try {
             // 사용자 생성
-            int result = userService.resetPassword(userid);
+            int result = userService.resetPassword(usId);
             if(result > 0) return ResponseEntity.ok("Password reset successfully");
             else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             

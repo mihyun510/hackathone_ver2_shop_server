@@ -1,4 +1,4 @@
-package com.kimh.spm.security;
+package com.kimh.spm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.kimh.spm.security.JwtTokenAuthenticationFilter;
+import com.kimh.spm.security.jwt.JwtTokenAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity

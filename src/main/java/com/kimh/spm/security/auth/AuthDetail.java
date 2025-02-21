@@ -1,4 +1,4 @@
-package com.kimh.spm.domain.auth;
+package com.kimh.spm.security.auth;
 
 import java.util.Collection;
 

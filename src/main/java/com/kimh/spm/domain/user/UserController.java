@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kimh.spm.domain.user.User;
-import com.kimh.spm.domain.auth.AuthDetailService;
-import com.kimh.spm.security.JwtTokenProvider;
+import com.kimh.spm.security.auth.AuthDetailService;
+import com.kimh.spm.security.jwt.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/api/user")

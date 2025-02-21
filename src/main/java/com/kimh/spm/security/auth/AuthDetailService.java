@@ -1,4 +1,4 @@
-package com.kimh.spm.domain.auth;
+package com.kimh.spm.security.auth;
 
 import java.util.Optional;
 
@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.kimh.spm.domain.auth.AuthDetail;
 import com.kimh.spm.domain.user.User;
 import com.kimh.spm.domain.user.UserRepository;
 

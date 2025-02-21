@@ -1,4 +1,4 @@
-package com.kimh.spm.security;
+package com.kimh.spm.security.jwt;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -6,8 +6,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.kimh.spm.domain.auth.AuthDetailService;
-import com.kimh.spm.security.JwtTokenProvider;
+import com.kimh.spm.security.auth.AuthDetailService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
